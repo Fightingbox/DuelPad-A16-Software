@@ -217,7 +217,7 @@
 // Button Lock Add-on setting
 // In Focus on mode, the START, SELECT, CAPTURE, and HOME buttons are locked,  the OLED off state, all the LED off state
 #define FOCUS_MODE_ENABLED 1
-#define FOCUS_MODE_BUTTON_MASK GAMEPAD_MASK_S1 | GAMEPAD_MASK_S2 | GAMEPAD_MASK_A1 | GAMEPAD_MASK_A2 | GAMEPAD_MASK_L3 | GAMEPAD_MASK_R3 // 0 means none, get other mask from GamepadState.h
+#define FOCUS_MODE_BUTTON_MASK GAMEPAD_MASK_S1 | GAMEPAD_MASK_S2 | GAMEPAD_MASK_A1 | GAMEPAD_MASK_A2  // 0 means none, get other mask from GamepadState.h
 #define FOCUS_MODE_PIN 8
 #define FOCUS_MODE_RGB_LOCK_ENABLED 1
 #define FOCUS_MODE_BUTTON_LOCK_ENABLED 1
