@@ -106,8 +106,8 @@ void GPButton::draw() {
         }
     }
 
-    state = (buttonState ? pinState : 0);
-
+    //state = (buttonState ? pinState : 0);
+    state = pinState;
     // base
     if (this->_shape == GP_SHAPE_ELLIPSE) {
         uint16_t scaledSize = (uint16_t)((double)this->_sizeX * scaleX);

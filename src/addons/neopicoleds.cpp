@@ -166,7 +166,55 @@ void NeoPicoLEDAddon::process()
 		as.HandleEvent(action);
 	}
 
-	uint32_t buttonState = gamepad->state.dpad << 16 | gamepad->state.buttons;
+	//uint32_t buttonState = gamepad->state.dpad << 16 | gamepad->state.buttons;
+	uint32_t n_dpad = 0;
+
+	if(gamepad->getOptions().dpadMode == DpadMode::DPAD_MODE_LEFT_ANALOG)
+	{
+		if (gamepad->state.lx == GAMEPAD_JOYSTICK_MAX)
+		{
+			n_dpad |= GAMEPAD_MASK_RIGHT;
+		}
+		if (gamepad->state.lx == GAMEPAD_JOYSTICK_MIN)
+		{
+			n_dpad |= GAMEPAD_MASK_LEFT;
+		}
+		if (gamepad->state.ly == GAMEPAD_JOYSTICK_MIN)
+		{
+			n_dpad |= GAMEPAD_MASK_UP;
+		}
+		if (gamepad->state.ly == GAMEPAD_JOYSTICK_MAX)
+		{
+			n_dpad |= GAMEPAD_MASK_DOWN;
+		}
+	}
+	else if(gamepad->getOptions().dpadMode == DpadMode::DPAD_MODE_LEFT_ANALOG)
+	{
+		if (gamepad->state.rx == GAMEPAD_JOYSTICK_MAX)
+		{
+			n_dpad |= GAMEPAD_MASK_DR;
+		}
+		if (gamepad->state.ry == GAMEPAD_JOYSTICK_MIN)
+		{
+			n_dpad |= GAMEPAD_MASK_DU;
+		}
+		if (gamepad->state.rx == GAMEPAD_JOYSTICK_MIN)
+		{
+			n_dpad |= GAMEPAD_MASK_DL;
+		}
+		if (gamepad->state.ry == GAMEPAD_JOYSTICK_MAX)
+		{
+			n_dpad |= GAMEPAD_MASK_DD;
+		}	
+	}
+	else if(gamepad->getOptions().dpadMode == DpadMode::DPAD_MODE_DIGITAL)
+	{
+		n_dpad = gamepad->state.dpad ;
+	}
+	
+	uint32_t buttonState = n_dpad << 16 | gamepad->state.buttons;
+
+
 	vector<Pixel> pressed;
 	for (auto row : matrix.pixels)
 	{
