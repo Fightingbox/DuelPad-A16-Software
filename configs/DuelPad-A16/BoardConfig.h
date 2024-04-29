@@ -30,7 +30,7 @@
 #define GPIO_PIN_02 GpioAction::BUTTON_PRESS_L3     // L3     | LS     | LS      | L3       | 11     | LS     |
 #define GPIO_PIN_01 GpioAction::BUTTON_PRESS_R3     // R3     | RS     | RS      | R3       | 12     | RS     |
 #define GPIO_PIN_04 GpioAction::BUTTON_PRESS_A1     // A1     | Guide  | Home    | PS       | 13     | ~      |
-#define GPIO_PIN_03 GpioAction::BUTTON_PRESS_A2     // A2     | ~      | Capture | ~        | 14     | ~      |
+//#define GPIO_PIN_03 GpioAction::BUTTON_PRESS_A2     // A2     | ~      | Capture | ~        | 14     | ~      |
 
 // Keyboard Mapping Configuration
 //                                            // GP2040 | Xinput | Switch  | PS3/4/5  | Dinput | Arcade |
@@ -56,11 +56,10 @@
 
 // Additional Button Support
 #define GPIO_PIN_07 GpioAction::BUTTON_PRESS_UP
+#define GPIO_PIN_03 GpioAction::BUTTON_PRESS_MACRO_2
 // Setting GPIO pins to assigned by add-on
 //
 #define GPIO_PIN_15 GpioAction::ASSIGNED_TO_ADDON
-#define GPIO_PIN_17 GpioAction::ASSIGNED_TO_ADDON
-#define GPIO_PIN_14 GpioAction::ASSIGNED_TO_ADDON
 
 
 #define USB_PERIPHERAL_ENABLED 1
@@ -134,7 +133,7 @@
 #define FOCUS_MODE_BUTTON_MASK GAMEPAD_MASK_S1 | GAMEPAD_MASK_S2 | GAMEPAD_MASK_A1 | GAMEPAD_MASK_A2 
 #define FOCUS_MODE_PIN 8
 #define FOCUS_MODE_BUTTON_LOCK_ENABLED 1
-#define FOCUS_MODE_MACRO_LOCK_ENABLED 1
+
 
 #define DEFAULT_SPLASH \
 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, \

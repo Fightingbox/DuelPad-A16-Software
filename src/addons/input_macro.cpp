@@ -244,9 +244,17 @@ void InputMacro::runCurrentMacro() {
 void InputMacro::preprocess()
 {
     FocusModeOptions * focusModeOptions = &Storage::getInstance().getAddonOptions().focusModeOptions;
-    if (focusModeOptions->enabled && focusModeOptions->macroLockEnabled)
-        return;
+    if (isValidPin(focusModeOptions->pin))
+    {
+        if(!gpio_get(focusModeOptions->pin))
+        {
+            if (focusModeOptions->enabled && focusModeOptions->macroLockEnabled)
+            return;
 
+        }
+    }
+    
+   
     checkMacroPress();
     checkMacroAction();
     runCurrentMacro();
