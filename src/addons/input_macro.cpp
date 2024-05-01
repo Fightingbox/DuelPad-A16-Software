@@ -95,8 +95,8 @@ void InputMacro::restart(Macro& macro) {
 
 void InputMacro::checkMacroPress() {
     Gamepad * gamepad = Storage::getInstance().GetGamepad();
-    Mask_t allPins = gamepad->debouncedGpio;
-
+    //Mask_t allPins = gamepad->debouncedGpio;
+    uint32_t allPins = ~gpio_get_all();
     // Go through our macro list
     pressedMacro = -1;
     for(int i = 0; i < MAX_MACRO_LIMIT; i++) {
