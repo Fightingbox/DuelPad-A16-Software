@@ -224,6 +224,7 @@ void Gamepad::read()
 		| ((values & mapButtonR3->pinMask)  ? mapButtonR3->buttonMask  : 0)
 		| ((values & mapButtonA1->pinMask)  ? mapButtonA1->buttonMask  : 0)
 		| ((values & mapButtonA2->pinMask)  ? mapButtonA2->buttonMask  : 0)
+	//	| ((values & mapButtonM1->pinMask)  ? mapButtonM1->buttonMask  : 0)
 	;
 
 	state.lx = joystickMid;
