@@ -213,6 +213,12 @@ void NeoPicoLEDAddon::process()
 	}
 	
 	uint32_t buttonState = n_dpad << 16 | gamepad->state.buttons;
+	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
+
+	if(values & (Storage::getInstance().GetGamepad()->mapButtonM1->pinMask))
+	{
+		buttonState |= Storage::getInstance().GetGamepad()->mapButtonM1->buttonMask;
+	}
 
 
 	vector<Pixel> pressed;
@@ -224,6 +230,8 @@ void NeoPicoLEDAddon::process()
 				pressed.push_back(pixel);
 		}
 	}
+
+
 	if (pressed.size() > 0)
 		as.HandlePressed(pressed);
 	else
