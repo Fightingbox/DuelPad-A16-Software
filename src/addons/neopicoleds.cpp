@@ -142,6 +142,8 @@ void NeoPicoLEDAddon::setup()
 	configureLEDs();
 
 	nextRunTime = make_timeout_time_ms(0); // Reset timeout
+	const FocusModeOptions& focusModeOptions = Storage::getInstance().getAddonOptions().focusModeOptions;
+		isFocusModeEnabled = focusModeOptions.enabled && isValidPin(focusModeOptions.pin);
 }
 
 void NeoPicoLEDAddon::process()
@@ -149,6 +151,8 @@ void NeoPicoLEDAddon::process()
 	const LEDOptions& ledOptions = Storage::getInstance().getLedOptions();
 	if (!isValidPin(ledOptions.dataPin) || !time_reached(this->nextRunTime))
 		return;
+
+
 
 	Gamepad * gamepad = Storage::getInstance().GetProcessedGamepad();
 	uint8_t * featureData = Storage::getInstance().GetFeatureData();
@@ -244,7 +248,16 @@ void NeoPicoLEDAddon::process()
 	} else {
 		as.SetBrightness(AnimationStation::GetBrightness());
 	}
+	FocusModeOptions * focusModeOptions = &Storage::getInstance().getAddonOptions().focusModeOptions;
+    if (isValidPin(focusModeOptions->pin))
+    {
+        if(!gpio_get(focusModeOptions->pin))
+        {
+            if (focusModeOptions->enabled && focusModeOptions->macroLockEnabled)
+            as.DimBrightnessTo0();
 
+        }
+    }
 	as.ApplyBrightness(frame);
 
 	// Apply the player LEDs to our first 4 leds if we're in NEOPIXEL mode
