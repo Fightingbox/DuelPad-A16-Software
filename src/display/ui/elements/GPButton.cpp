@@ -31,13 +31,28 @@ void GPButton::draw() {
 
     bool pinState = false;
     bool buttonState = false;
+    bool focusOn = false;
     uint16_t state = 0;
     int16_t setPin = -1;
     int32_t maskedPins = 0;
     bool useMask = false;
     GamepadButtonMapping *mapMask = NULL;
 
-    if (_inputType == GP_ELEMENT_BTN_BUTTON) {
+
+
+        FocusModeOptions * focusModeOptions = &Storage::getInstance().getAddonOptions().focusModeOptions;
+    if (isValidPin(focusModeOptions->pin) && focusModeOptions->enabled && focusModeOptions->macroLockEnabled )
+    {
+        if(!gpio_get(focusModeOptions->pin))
+        {     
+            focusOn = true;               
+        }
+        else 
+        focusOn = false;     
+    }
+
+
+    if (_inputType == GP_ELEMENT_BTN_BUTTON ) {
         // button mask
         buttonState = getProcessedGamepad()->pressedButton(this->_inputMask);
         useMask = true;
@@ -58,19 +73,19 @@ void GPButton::draw() {
             mapMask = getGamepad()->mapButtonL2;
         } else if ((this->_inputMask & GAMEPAD_MASK_R2) == GAMEPAD_MASK_R2) {
             mapMask = getGamepad()->mapButtonR2;
-        } else if ((this->_inputMask & GAMEPAD_MASK_S1) == GAMEPAD_MASK_S1) {
+        } else if (((this->_inputMask & GAMEPAD_MASK_S1) == GAMEPAD_MASK_S1)  && !focusOn ) {
             mapMask = getGamepad()->mapButtonS1;
-        } else if ((this->_inputMask & GAMEPAD_MASK_S2) == GAMEPAD_MASK_S2) {
+        } else if (((this->_inputMask & GAMEPAD_MASK_S2) == GAMEPAD_MASK_S2)  && !focusOn) {
             mapMask = getGamepad()->mapButtonS2;
         } else if ((this->_inputMask & GAMEPAD_MASK_L3) == GAMEPAD_MASK_L3) {
             mapMask = getGamepad()->mapButtonL3;
         } else if ((this->_inputMask & GAMEPAD_MASK_R3) == GAMEPAD_MASK_R3) {
             mapMask = getGamepad()->mapButtonR3;
-        } else if ((this->_inputMask & GAMEPAD_MASK_A1) == GAMEPAD_MASK_A1) {
+        } else if (((this->_inputMask & GAMEPAD_MASK_A1) == GAMEPAD_MASK_A1) && !focusOn) {
             mapMask = getGamepad()->mapButtonA1;
-        } else if ((this->_inputMask & GAMEPAD_MASK_A2) == GAMEPAD_MASK_A2) {
-            mapMask = getGamepad()->mapButtonA2;
-        }else if ((this->_inputMask & GAMEPAD_MASK_M1) == GAMEPAD_MASK_M1) {
+     //   } else if (((this->_inputMask & GAMEPAD_MASK_A2 ) == GAMEPAD_MASK_A2)&& !focusOn) {
+      //      mapMask = getGamepad()->mapButtonA2;
+        }else if (((this->_inputMask & GAMEPAD_MASK_M1 ) == GAMEPAD_MASK_M1) && !focusOn ){
             mapMask = getGamepad()->mapButtonM1;
         }
     } else if (_inputType == GP_ELEMENT_DIR_BUTTON) {
@@ -93,6 +108,9 @@ void GPButton::draw() {
         buttonState = true;
     }
 
+
+
+
     if (useMask && mapMask != NULL) {
         maskedPins = (pinValues & mapMask->pinMask);
         
@@ -107,6 +125,9 @@ void GPButton::draw() {
             pinState = ((pinValues >> setPin) & 0x01);
         }
     }
+
+
+
 
     //state = (buttonState ? pinState : 0);
     state = pinState;
