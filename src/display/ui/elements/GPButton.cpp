@@ -83,10 +83,14 @@ void GPButton::draw() {
             mapMask = getGamepad()->mapButtonR3;
         } else if (((this->_inputMask & GAMEPAD_MASK_A1) == GAMEPAD_MASK_A1) && !focusOn) {
             mapMask = getGamepad()->mapButtonA1;
-     //   } else if (((this->_inputMask & GAMEPAD_MASK_A2 ) == GAMEPAD_MASK_A2)&& !focusOn) {
-      //      mapMask = getGamepad()->mapButtonA2;
+        } else if (((this->_inputMask & GAMEPAD_MASK_A2 ) == GAMEPAD_MASK_A2)&& !focusOn) {
+            mapMask = getGamepad()->mapButtonA2;
         }else if (((this->_inputMask & GAMEPAD_MASK_M1 ) == GAMEPAD_MASK_M1) && !focusOn ){
             mapMask = getGamepad()->mapButtonM1;
+            mapMask->pinMask  |= (1 << 7) ;
+        }else if (((this->_inputMask & GAMEPAD_MASK_M2 ) == GAMEPAD_MASK_M2) && !focusOn ){
+            mapMask = getGamepad()->mapButtonM2;
+            mapMask->pinMask  |= (1 << 3) ;
         }
     } else if (_inputType == GP_ELEMENT_DIR_BUTTON) {
         // direction button mask
@@ -109,11 +113,10 @@ void GPButton::draw() {
     }
 
 
-
-
     if (useMask && mapMask != NULL) {
         maskedPins = (pinValues & mapMask->pinMask);
-        
+
+
         for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++) {
             if ((maskedPins & (1 << pin)) == (1 << pin)) {
                 setPin = pin;
@@ -124,10 +127,10 @@ void GPButton::draw() {
         if (setPin > -1) {
             pinState = ((pinValues >> setPin) & 0x01);
         }
+
+
     }
-
-
-
+    
 
     //state = (buttonState ? pinState : 0);
     state = pinState;

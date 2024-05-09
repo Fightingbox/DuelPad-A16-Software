@@ -219,9 +219,14 @@ void NeoPicoLEDAddon::process()
 	uint32_t buttonState = n_dpad << 16 | gamepad->state.buttons;
 	Mask_t values = Storage::getInstance().GetGamepad()->debouncedGpio;
 
-	if(values & (Storage::getInstance().GetGamepad()->mapButtonM1->pinMask))
+	if(values & ((uint32_t)( 1<< 3 )))
 	{
-		buttonState |= Storage::getInstance().GetGamepad()->mapButtonM1->buttonMask;
+		buttonState |= GAMEPAD_MASK_M1;
+	}
+
+	if(values & ((uint32_t)( 1<< 7 )))
+	{
+		buttonState |= GAMEPAD_MASK_A2;
 	}
 
 

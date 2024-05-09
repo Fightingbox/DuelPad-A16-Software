@@ -55,6 +55,7 @@ void Gamepad::setup()
 	mapButtonA2  = new GamepadButtonMapping(GAMEPAD_MASK_A2);
 	mapButtonFn  = new GamepadButtonMapping(AUX_MASK_FUNCTION);
 	mapButtonM1  = new GamepadButtonMapping(GAMEPAD_MASK_M1);
+	mapButtonM2  = new GamepadButtonMapping(GAMEPAD_MASK_M2);
 
 	for (Pin_t pin = 0; pin < (Pin_t)NUM_BANK0_GPIOS; pin++)
 	{
@@ -78,7 +79,7 @@ void Gamepad::setup()
 			case GpioAction::BUTTON_PRESS_A1:	mapButtonA1->pinMask |= 1 << pin; break;
 			case GpioAction::BUTTON_PRESS_A2:	mapButtonA2->pinMask |= 1 << pin; break;
 			case GpioAction::BUTTON_PRESS_FN:	mapButtonFn->pinMask |= 1 << pin; break;
-			case GpioAction::BUTTON_PRESS_MACRO_1:	mapButtonM1->pinMask |= 1 << pin; break;
+			//case GpioAction::BUTTON_PRESS_MACRO_1:	mapButtonM1->pinMask |= 1 << pin; break;
 			default:				break;
 		}
 	}
@@ -111,7 +112,7 @@ void Gamepad::reinit()
 	delete mapButtonA2;
 	delete mapButtonFn;
 	delete mapButtonM1;
-
+delete mapButtonM2;
 	// reinitialize pin mappings
 	this->setup();
 }
@@ -224,7 +225,6 @@ void Gamepad::read()
 		| ((values & mapButtonR3->pinMask)  ? mapButtonR3->buttonMask  : 0)
 		| ((values & mapButtonA1->pinMask)  ? mapButtonA1->buttonMask  : 0)
 		| ((values & mapButtonA2->pinMask)  ? mapButtonA2->buttonMask  : 0)
-	//	| ((values & mapButtonM1->pinMask)  ? mapButtonM1->buttonMask  : 0)
 	;
 
 	state.lx = joystickMid;

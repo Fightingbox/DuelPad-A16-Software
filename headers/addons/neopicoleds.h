@@ -154,6 +154,10 @@
 #define LEDS_BUTTON_M1  -1
 #endif
 
+#ifndef LEDS_BUTTON_M2
+#define LEDS_BUTTON_M2  -1
+#endif
+
 #ifndef LEDS_TURN_OFF_WHEN_SUSPENDED
 #define LEDS_TURN_OFF_WHEN_SUSPENDED 0
 #endif

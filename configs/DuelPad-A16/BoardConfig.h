@@ -56,7 +56,7 @@
 
 // Additional Button Support
 #define GPIO_PIN_07 GpioAction::BUTTON_PRESS_UP
-#define GPIO_PIN_03 GpioAction::BUTTON_PRESS_MACRO_1
+#define GPIO_PIN_03 GpioAction::BUTTON_PRESS_MACRO_2
 // Setting GPIO pins to assigned by add-on
 //
 #define GPIO_PIN_15 GpioAction::ASSIGNED_TO_ADDON
@@ -108,8 +108,8 @@
 #define LEDS_BUTTON_S2   -1
 #define LEDS_BUTTON_L3   0
 #define LEDS_BUTTON_R3   12
-#define LEDS_BUTTON_A1   14
-#define LEDS_BUTTON_A2   -1
+#define LEDS_BUTTON_A1   -1
+#define LEDS_BUTTON_A2   14
 #define LEDS_BUTTON_M1   15
 
 
